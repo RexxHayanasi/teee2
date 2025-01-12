@@ -5,8 +5,8 @@ import ProviderLayout from "./provider";
 import { fontPoppins } from "@/config/fonts";
 
 export const metadata: Metadata = {
-  title: "Otakudesu",
-  description: "Build by rizkyhaksono",
+  title: "Archavelianime",
+  description: "Build by RexxzynXD",
 };
 
 export default function RootLayout({
