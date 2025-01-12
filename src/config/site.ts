@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "Otakudesu Frontend",
-  description: "Otakudesu website for Frontend",
+  name: "Archavelianime",
+  description: "Archavelianime website for all people",
   navItems: [
     {
       label: "Home",
