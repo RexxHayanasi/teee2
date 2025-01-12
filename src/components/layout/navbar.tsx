@@ -53,7 +53,7 @@ export default function Navbar() {
           </SheetTrigger>
           <SheetContent side={"left"}>
             <SheetHeader>
-              <SheetTitle>Otakudesu</SheetTitle>
+              <SheetTitle>Archavelianime</SheetTitle>
               <SheetDescription>
                 {siteConfig.navMenuItems.map((item) => (
                   <Link key={item.label} href={item.href}>
@@ -73,17 +73,17 @@ export default function Navbar() {
             <Link
               target="_blank"
               rel="noreferrer"
-              href="https://github.com/rizkyhaksono/otakudesu-fe"
+              href="https://Instagram.com/rexxzynxd"
             >
               <div className="inline-flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md px-0 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                <FaGithub />
-                <span className="sr-only">GitHub</span>
+                <FaInstagram />
+                <span className="sr-only">Instagram</span>
               </div>
             </Link>
             <Link
               target="_blank"
               rel="noreferrer"
-              href="https://twitter.com/rizkyhaksono"
+              href="https://x.com/ModerRexx?s=09"
             >
               <div className="inline-flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md px-0 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
                 <FaXTwitter />
