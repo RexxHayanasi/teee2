@@ -6,21 +6,21 @@ export default function Footer() {
       <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
         Built by&nbsp;
         <Link
-          href="https://github.com/rizkyhaksono"
+          href="https://Instagram.com/rexxzynxd"
           target="_blank"
           rel="noreferrer"
           className="font-medium text-foreground underline underline-offset-4"
         >
-          rizkyhaksono
+          RexxzynXD
         </Link>
-        .&nbsp;The source code is available on&nbsp;
+        .&nbsp;can be used by everyone supported by the community &nbsp;
         <Link
-          href="https://github.com/rizkyhaksono/otakudesu-fe"
+          href="https://Instagram.com/archave_comunity"
           target="_blank"
           rel="noreferrer"
           className="font-medium text-foreground underline underline-offset-4"
         >
-          GitHub
+          Archave Community 
         </Link>
       </p>
     </footer>
