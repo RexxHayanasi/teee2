@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Anime Detail | Otakudesu",
-  description: "Anime Detail Page Otakudesu. Build by Rizky Haksono",
+  title: "Anime Detail | Archavelianime",
+  description: "Anime Detail Page. Build by RexxzynXD",
 };
 
 export default function AnimeSlug({
