@@ -4,8 +4,8 @@ import GreetingLayout from "@/components/layout/greeting-layout";
 import { Metadata } from "next/types";
 
 export const metadata: Metadata = {
-  title: "Home | Otakudesu",
-  description: "Home Page Otakudesu. Build by Rizky Haksono",
+  title: "Home | Archave Community",
+  description: "Home Page Archavelianime. Build by RexxzynXD",
 };
 
 export default function Home() {
