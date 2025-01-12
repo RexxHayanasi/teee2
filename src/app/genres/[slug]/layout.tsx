@@ -1,8 +1,8 @@
 import { Metadata } from "next/types";
 
 export const metadata: Metadata = {
-  title: "Genre Anime | Otakudesu",
-  description: "Genre Anime Page Otakudesu. Build by Rizky Haksono",
+  title: "Genre Anime | Archavelianime",
+  description: "Genre Anime Page Otakudesu. Build by RexxzynXD",
 };
 
 export default function GenreSlugLayout({
