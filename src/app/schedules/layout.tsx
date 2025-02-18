@@ -3,7 +3,7 @@ import { Metadata } from "next/types";
 
 export const metadata: Metadata = {
   title: "Schedules | Archavelianime",
-  description: "Schedules Page Otakudesu. Build by RexxzynXD",
+  description: "Schedules Page Archavelianime. Build by RexxzynXD",
 };
 
 export default function SchedulesLayout({
