@@ -2,8 +2,8 @@ import { Metadata } from "next/types";
 import BaseLayout from "./base-layout";
 
 export const metadata: Metadata = {
-  title: "Error Segment | Otakudesu",
-  description: "Otakudesu Page. Build by Rizky Haksono",
+  title: "Error Segment | Archavelianime",
+  description: "Archavelianime Page. Build by RexxzynXD",
 };
 
 export default function ErrorSegment() {
