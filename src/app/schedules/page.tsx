@@ -44,7 +44,7 @@ export default function SchedulesPage() {
                 <div className="flex flex-col gap-2 pt-6">
                   {data?.anime_list?.map((anime: any) => (
                     <Link
-  href={`https://archavelianime.web.id/anime/${anime?.anime_name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+  href={`https://archavelianime.web.id/anime/${anime?.slug}`}
   target="_blank"
   key={anime?.title}
   className="hover:underline hover:underline-offset-4"
