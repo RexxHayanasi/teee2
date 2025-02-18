@@ -7,7 +7,7 @@ export const useDynamicTitle = (loading: boolean, episodeTitle?: string) => {
       : `${episodeTitle} | Archavelianime`;
 
     return () => {
-      document.title = "Otakudesu";
+      document.title = "Archavelianime";
     };
   }, [loading, episodeTitle]);
 };
