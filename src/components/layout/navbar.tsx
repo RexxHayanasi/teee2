@@ -31,7 +31,7 @@ export default function Navbar() {
         <div className="mr-4 hidden md:flex">
           <Link className="mr-6 flex items-center space-x-2" href="/">
             <FaBolt />
-            <span className="hidden font-bold sm:inline-block">RH</span>
+            <span className="hidden font-bold sm:inline-block">AV</span>
           </Link>
           <nav className="flex items-center gap-6 text-sm">
             {siteConfig.navItems.map((item) => (
