@@ -25,11 +25,11 @@ export default function SchedulesPage() {
       <div className="container mx-auto px-4 py-10 max-[640px]:text-center sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl">
         <div className="max-w-2xl sm:mx-auto sm:max-w-xl sm:text-center md:max-w-2xl">
           <h2 className="mb-6 font-sans text-3xl font-bold tracking-tight text-foreground sm:text-4xl sm:leading-none">
-            Sync Up with<span className="leading-12 bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">&nbsp;Anime</span>
+            Sinkronisasi dengan <span className="leading-12 bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">&nbsp;Anime baru!</span>
           </h2>
           <p className="text-base text-foreground md:text-lg">
             {
-              "Stay Ahead of Release Times and Catch Every New Episode on Schedule!."
+              "Tetaplah Nantikan terhadap Waktu Rilis dan Saksikan Setiap Episode Baru Sesuai Jadwal!."
             }
           </p>
         </div>
