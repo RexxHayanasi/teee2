@@ -137,7 +137,6 @@ return (
     </Sheet>
 )}
     </Sheet>
-))
 SheetTitle.displayName = SheetPrimitive.Title.displayName
 
 const SheetDescription = React.forwardRef<
