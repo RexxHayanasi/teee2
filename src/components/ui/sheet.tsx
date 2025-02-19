@@ -105,53 +105,38 @@ const SheetFooter = ({
 )
 SheetFooter.displayName = "SheetFooter"
 
-return (
+
+  lTitle.displayName = SheetPrimitive.Title.displayName
+
+const SheetDescription: React.FC = () => {
+  const [open, setOpen] = React.useState(false)
+
+  return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button className="w-60 flex justify-between items-center p-2 bg-gray-800 text-white rounded-md">
           Anime {open ? <Minus size={18} /> : <Plus size={18} />}
         </button>
       </SheetTrigger>
-      {open && (
-        <SheetContent
-          className={cn(
-            "absolute mt-2 w-60 bg-gray-900 text-white rounded-md shadow-lg border border-gray-700"
-          )}
-        >
-          <ul className="space-y-2 p-2">
-            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-              Home
-            </li>
-            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-              Search Anime
-            </li>
-            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-              Genres List
-            </li>
-            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-              Schedules List
-            </li>
-          </ul>
-        </SheetContent>
-      )}
+      <SheetContent>
+        <ul className="space-y-2 p-4">
+          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+            Home
+          </li>
+          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+            Search Anime
+          </li>
+          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+            Genres List
+          </li>
+          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+            Schedules List
+          </li>
+        </ul>
+      </SheetContent>
     </Sheet>
-)}
-    </Sheet>
-SheetTitle.displayName = SheetPrimitive.Title.displayName
-
-const SheetDescription = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
->(({ className, ...props }, ref) => (
-  <SheetPrimitive.Description
-    ref={ref}
-    className={cn(
-      "text-sm text-gray-700 dark:text-gray-300 px-5 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 hover:shadow-lg",
-      className
-    )}
-    {...props}
-  />
-))
+  )
+}
 SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 export {
