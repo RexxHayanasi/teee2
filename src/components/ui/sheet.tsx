@@ -3,19 +3,13 @@
 import * as React from "react"
 import * as SheetPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
-import { X } from "lucide-react"
+import { X, Plus, Minus } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
 const Sheet = SheetPrimitive.Root
-
-const SheetDescription = () => {
-  const [open, setOpen] = React.useState(false);
-
 const SheetTrigger = SheetPrimitive.Trigger
-
 const SheetClose = SheetPrimitive.Close
-
 const SheetPortal = SheetPrimitive.Portal
 
 const SheetOverlay = React.forwardRef<
@@ -23,12 +17,12 @@ const SheetOverlay = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
+    ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/80 transition-opacity data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out",
       className
     )}
     {...props}
-    ref={ref}
   />
 ))
 SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
@@ -43,7 +37,7 @@ const sheetVariants = cva(
           "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
         left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
         right:
-          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
+          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
       },
     },
     defaultVariants: {
@@ -105,10 +99,34 @@ const SheetFooter = ({
 )
 SheetFooter.displayName = "SheetFooter"
 
+const SheetTitle = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <SheetPrimitive.Title
+    ref={ref}
+    className={cn("text-lg font-bold text-gray-900 dark:text-gray-100", className)}
+    {...props}
+  />
+))
+SheetTitle.displayName = SheetPrimitive.Title.displayName
 
-  lTitle.displayName = SheetPrimitive.Title.displayName
+const SheetDescription = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <SheetPrimitive.Description
+    ref={ref}
+    className={cn(
+      "text-sm text-gray-700 dark:text-gray-300 px-5 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-md transition-all duration-300 hover:shadow-lg",
+      className
+    )}
+    {...props}
+  />
+))
+SheetDescription.displayName = SheetPrimitive.Description.displayName
 
-const SheetDescription: React.FC = () => {
+const AnimeDropdown = () => {
   const [open, setOpen] = React.useState(false)
 
   return (
@@ -118,26 +136,37 @@ const SheetDescription: React.FC = () => {
           Anime {open ? <Minus size={18} /> : <Plus size={18} />}
         </button>
       </SheetTrigger>
-      <SheetContent>
-        <ul className="space-y-2 p-4">
-          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-            Home
-          </li>
-          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-            Search Anime
-          </li>
-          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-            Genres List
-          </li>
-          <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
-            Schedules List
-          </li>
-        </ul>
-      </SheetContent>
+      {open && (
+        <SheetContent
+          className="absolute mt-2 w-60 bg-gray-900 text-white rounded-md shadow-lg border border-gray-700"
+        >
+          <SheetHeader className="px-4 py-2">
+            <SheetTitle>Anime Menu</SheetTitle>
+          </SheetHeader>
+          <ul className="space-y-2 p-4">
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Home
+            </li>
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Search Anime
+            </li>
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Genres List
+            </li>
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Schedules List
+            </li>
+          </ul>
+          <SheetFooter className="p-4">
+            <SheetClose className="bg-red-600 text-white px-4 py-2 rounded-md">
+              Close
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      )}
     </Sheet>
   )
 }
-SheetDescription.displayName = SheetPrimitive.Description.displayName
 
 export {
   Sheet,
@@ -150,4 +179,5 @@ export {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-}
+  AnimeDropdown
+  }
