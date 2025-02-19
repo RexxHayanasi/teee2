@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils"
 
 const Sheet = SheetPrimitive.Root
 
+const SheetDescription = () => {
+  const [open, setOpen] = React.useState(false);
+
 const SheetTrigger = SheetPrimitive.Trigger
 
 const SheetClose = SheetPrimitive.Close
@@ -102,15 +105,38 @@ const SheetFooter = ({
 )
 SheetFooter.displayName = "SheetFooter"
 
-const SheetTitle = React.forwardRef<
-  React.ElementRef<typeof SheetPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
->(({ className, ...props }, ref) => (
-  <SheetPrimitive.Title
-    ref={ref}
-    className={cn("text-lg font-semibold text-foreground", className)}
-    {...props}
-  />
+return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <button className="w-60 flex justify-between items-center p-2 bg-gray-800 text-white rounded-md">
+          Anime {open ? <Minus size={18} /> : <Plus size={18} />}
+        </button>
+      </SheetTrigger>
+      {open && (
+        <SheetContent
+          className={cn(
+            "absolute mt-2 w-60 bg-gray-900 text-white rounded-md shadow-lg border border-gray-700"
+          )}
+        >
+          <ul className="space-y-2 p-2">
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Home
+            </li>
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Search Anime
+            </li>
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Genres List
+            </li>
+            <li className="hover:bg-gray-700 p-2 rounded-md cursor-pointer">
+              Schedules List
+            </li>
+          </ul>
+        </SheetContent>
+      )}
+    </Sheet>
+)}
+    </Sheet>
 ))
 SheetTitle.displayName = SheetPrimitive.Title.displayName
 
