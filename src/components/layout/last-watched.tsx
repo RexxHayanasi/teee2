@@ -1,13 +1,9 @@
 "use client";
 
-import {
-  getSavedEpisode,
-  deleteAllEpisode,
-} from "@/src/helpers/storage-episode.ts"; // <- sesuai file kamu
-import { Card, CardDescription, CardHeader } from "@/components/ui/card";
+import { getSavedEpisode, deleteAllEpisode } from "@/helpers/storage-episode";
+import { Card, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { subtitle, title } from "./primitives";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -22,96 +18,86 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
+import Typography from "@/components/ui/typography";
 
 export default function LastWatched() {
   const lastWatched = getSavedEpisode();
+  const router = useRouter();
 
   const handleDeleteAllEpisode = () => {
-    deleteAllEpisode();
-    toast("Riwayat tontonan dihapus", {
-      description: "Silakan muat ulang halaman untuk melihat perubahan.",
-      action: {
-        label: "Muat Ulang",
-        onClick: () => {
-          if (typeof window !== "undefined") {
-            window.location.reload();
-          }
-        },
-      },
-    });
+    toast.promise(
+      new Promise<void>((resolve) => {
+        deleteAllEpisode();
+        resolve();
+      }), {
+      loading: "Menghapus...",
+      success: "Episode tontonan sudah dihapus",
+      error: "Gagal menghapus",
+      finally: () => router.refresh(),
+    })
   };
 
   return (
-    <>
-      <CardHeader className={title({ className: "text-center", size: "xl" })}>
-        Terakhir Ditonton
+    <Card className="border-none">
+      <CardHeader className="text-center text-xl font-bold">
+        Last Watched
       </CardHeader>
-
-      <ScrollArea className="w-full whitespace-nowrap rounded-md">
-        <div
-          className={`${
-            lastWatched.length > 0 ? "flex space-x-2" : "py-4 text-center"
-          }`}
-        >
+      <ScrollArea className="max-[465px]:w-[330px] max-[565px]:w-[400px] max-[665px]:w-[500px] max-[765px]:w-[600px] max-[865px]:w-[700px] max-[970px]:w-[800px] max-[1060px]:w-[900px] max-[1160px]:w-[1000px] max-[1300px]:w-[1100px] whitespace-nowrap">
+        <div className={`${lastWatched.length > 0 ? "flex space-x-2" : "py-4 text-center"}`}>
           {lastWatched.length > 0 ? (
-            lastWatched.map((episode) => (
+            lastWatched.map((episode: any) => (
               <Card
-                key={episode.id}
+                key={episode.router}
                 className="items-center duration-300 hover:bg-muted/40"
               >
                 <Link href={episode.episode}>
                   <Image
                     src={episode.poster}
-                    className="rounded-t-lg object-cover max-[640px]:h-52 max-[640px]:w-full sm:h-80 sm:w-full md:h-72 md:w-64 lg:h-72 lg:w-72 xl:h-96 xl:w-full"
+                    className="rounded-t-lg object-cover max-[640px]:h-40 max-[640px]:w-full sm:h-80 sm:w-full md:h-72 md:w-64 lg:h-72 lg:w-72 xl:h-96 xl:w-full"
                     width={200}
                     height={100}
                     loading="lazy"
-                    alt={`Poster ${episode.title}`}
+                    alt="Poster Last Watched"
                   />
                 </Link>
-                <CardDescription
-                  className={subtitle({
-                    className: "my-3 text-center",
-                  })}
-                >
-                  <ScrollArea>
-                    <p className="w-60 p-2">{episode.title}</p>
-                    <ScrollBar orientation="horizontal" />
-                  </ScrollArea>
-                </CardDescription>
+                <ScrollArea className="w-60 p-2">
+                  <Typography.P className="text-center">{episode.title}</Typography.P>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
               </Card>
             ))
           ) : (
-            <>Belum ada episode yang ditonton.</>
+            <Typography.P>Tidak ada episode yang ditonton saat ini</Typography.P>
           )}
         </div>
-
         <ScrollBar orientation="horizontal" />
-
-        {lastWatched.length > 0 && (
-          <AlertDialog>
-            <AlertDialogTrigger className="mx-2 my-4 flex justify-end">
-              <Button variant="secondary">Hapus Semua Riwayat</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Yakin ingin menghapus?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Tindakan ini tidak dapat dibatalkan. Semua riwayat tontonan akan dihapus permanen dari perangkat.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Batal</AlertDialogCancel>
-                <AlertDialogAction onClick={handleDeleteAllEpisode}>
-                  Lanjutkan
-                </AlertDialogAction>
-              </AlertDialogFoote
-r>
-            </AlertDialogContent>
-          </AlertDialog>
-        )}
+        <div className="mx-2 my-4 flex justify-start">
+          {lastWatched.length > 0 && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="destructive">
+                  Delete All
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Apa kamu yakin?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Ini akan menghapus semua riwayat episode tontonan mu mungkin rasanya kaya kamu ga sengaja menghapus foto pap si doi.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Batalkan</AlertDialogCancel>
+                  <AlertDialogAction onClick={handleDeleteAllEpisode}>
+                    Gaskeun Jir dah yakin
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </div>
       </ScrollArea>
-    </>
+    </Card>
   );
-}
-
+                    }
