@@ -2,12 +2,27 @@ import { Card, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { subtitle, title } from "./primitives";
+import SkeletonCard from "./skeleton";
 
 export default function AnimeSearchCard({
-  anime
+  anime,
+  isLoading = false
 }: Readonly<{
-  anime: any
+  anime: any;
+  isLoading?: boolean;
 }>) {
+  if (isLoading) {
+    return (
+      <div className="grid gap-4 max-[400px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+        {[...Array(12)].map((_, index) => (
+          <div key={index} className="h-full">
+            <SkeletonCard />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
   if (!anime || anime.length === 0) {
     return (
       <div className="text-center py-10">
