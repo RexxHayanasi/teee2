@@ -8,57 +8,79 @@ export default function AnimeSearchCard({
 }: Readonly<{
   anime: any
 }>) {
-  if (!anime || anime === undefined || anime.length === 0) {
-    return <div className="text-center">Anime not found!</div>;
+  if (!anime || anime.length === 0) {
+    return (
+      <div className="text-center py-10">
+        <h3 className="text-xl font-semibold text-foreground/80">Anime not found!</h3>
+        <p className="text-muted-foreground">Try different search terms</p>
+      </div>
+    );
   }
 
-  console.log(anime?.map((data: any) => data))
-
   return (
-    <div className="grid gap-2 max-[640px]:grid-cols-2 max-[400px]:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5">
+    <div className="grid gap-4 max-[400px]:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {anime?.map((data: any) => (
-        <div key={data?.title}>
-          <Link href={`/anime/${data.slug}`}>
-            <Card className="items-center rounded-md transition duration-300 hover:bg-muted/40">
+        <Link 
+          href={`/anime/${data.slug}`} 
+          key={data?.title}
+          className="group focus-visible:outline-none"
+        >
+          <Card className="h-full rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 overflow-hidden">
+            <div className="relative aspect-[3/4] w-full">
               <Image
                 src={data.poster}
                 alt={data.title}
-                className="rounded-t-lg object-cover max-[640px]:h-36 max-[640px]:w-full sm:h-80 sm:w-full md:h-72 md:w-full lg:h-72 lg:w-full xl:h-96 xl:w-full"
-                width={300}
-                height={300}
+                fill
+                className="object-cover transition-opacity group-hover:opacity-90"
+                sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+                quality={80}
               />
-              <div className="mt-4 flex-1 space-y-1 px-4 pb-4">
-                <CardTitle className={title()}>{data.title}</CardTitle>
-                <p
-                  className={subtitle({
-                    className:
-                      "pt-3 underline decoration-solid underline-offset-4",
-                  })}
-                >
-                  Status: {data?.status}
-                </p>
-                <p
-                  className={subtitle({
-                    className:
-                      "pb-3 underline decoration-solid underline-offset-4",
-                  })}
-                >
-                  Rating: {data?.rating}
-                </p>
-                <div className="flex flex-wrap pt-2 gap-2">
-                  <p className={subtitle()}>Genres: </p>
-                  {data?.genres?.map((genre: any) => (
-                    <div key={genre?.slug}>
-                      <p className={subtitle()}>
-                        <span className="bg-muted px-2 py-1 rounded-lg">{genre?.name}</span>
-                      </p>
-                    </div>
-                  ))}
+              {data.rating && (
+                <div className="absolute bottom-2 left-2 bg-background/90 px-2 py-1 rounded-md text-sm font-semibold">
+                  ⭐ {data.rating}
                 </div>
+              )}
+            </div>
+            
+            <div className="p-4 space-y-2">
+              <CardTitle className={`${title()} line-clamp-2 group-hover:text-primary transition-colors`}>
+                {data.title}
+              </CardTitle>
+              
+              <div className="flex items-center gap-2 text-sm">
+                <span className={`${subtitle()} font-medium`}>
+                  {data.status}
+                </span>
+                {data.type && (
+                  <>
+                    <span className="text-muted-foreground">•</span>
+                    <span className={`${subtitle()} text-muted-foreground`}>
+                      {data.type}
+                    </span>
+                  </>
+                )}
               </div>
-            </Card>
-          </Link>
-        </div>
+              
+              {data.genres?.length > 0 && (
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {data.genres.slice(0, 3).map((genre: any) => (
+                    <span 
+                      key={genre.slug}
+                      className={`${subtitle()} text-xs bg-muted px-2 py-1 rounded-full whitespace-nowrap`}
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                  {data.genres.length > 3 && (
+                    <span className="text-xs text-muted-foreground">
+                      +{data.genres.length - 3} more
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
+          </Card>
+        </Link>
       ))}
     </div>
   );
