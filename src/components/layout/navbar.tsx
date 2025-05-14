@@ -1,14 +1,5 @@
-"use client";
-
-import Link from "next/link";
-import { useTheme } from "next-themes";
-import { usePathname } from "next/navigation";
-import {
-  FaBolt,
-  FaXTwitter,
-  FaInstagram,
-  FaGithub,
-} from "react-icons/fa6";
+import { FaBolt, FaXTwitter } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoSunny } from "react-icons/io5";
 import { FiMoon } from "react-icons/fi";
@@ -20,7 +11,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
 import { siteConfig } from "@/config/site";
+import Link from "next/link";
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -31,103 +25,109 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container max-w-screen-2xl flex h-14 items-center justify-between px-4">
-        {/* Logo dan Menu */}
-        <div className="flex items-center space-x-6">
-          <Link href="/" className="flex items-center space-x-2">
-            <FaBolt className="text-primary text-xl" />
-            <span className="hidden font-bold text-lg sm:inline-block">AV</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-lg supports-[backdrop-filter]:bg-background/80 transition-all duration-300">
+      <div className="container flex h-16 max-w-screen-2xl items-center">
+        {/* Logo and Desktop Navigation */}
+        <div className="mr-4 hidden md:flex items-center">
+          <Link 
+            className="mr-6 flex items-center space-x-2 group hover:scale-105 transition-transform" 
+            href="/"
+          >
+            <FaBolt className="text-2xl text-blue-500 group-hover:text-blue-400 transition-colors" />
+            <span className="hidden font-bold text-lg bg-gradient-to-br from-blue-500 to-blue-700 bg-clip-text text-transparent sm:inline-block">
+              AV
+            </span>
           </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+          
+          <nav className="flex items-center gap-2 text-sm">
             {siteConfig.navItems.map((item) => (
-              <NavItem key={item.label} href={item.href} active={pathName === item.href}>
-                {item.label}
-              </NavItem>
+              <Link key={item.label} href={item.href}>
+                <div
+                  className={`px-3 py-2 rounded-md transition-all hover:-translate-y-0.5 ${
+                    pathName === item.href 
+                      ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/20 font-semibold" 
+                      : "text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 font-medium hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }`}
+                >
+                  {item.label}
+                </div>
+              </Link>
             ))}
           </nav>
         </div>
 
-        {/* Mobile Menu */}
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger aria-label="Open Menu">
-              <GiHamburgerMenu className="text-xl" />
-            </SheetTrigger>
-            <SheetContent side="left">
-              <SheetHeader>
-                <SheetTitle className="text-primary text-lg">Archavelianime</SheetTitle>
-                <SheetDescription className="flex flex-col gap-4 mt-4">
-                  {siteConfig.navMenuItems.map((item) => (
-                    <NavItem key={item.label} href={item.href} active={pathName === item.href}>
-                      {item.label}
-                    </NavItem>
-                  ))}
-                </SheetDescription>
-              </SheetHeader>
-            </SheetContent>
-          </Sheet>
-        </div>
-
-        {/* Sosmed dan Toggle Theme */}
-        <div className="flex items-center space-x-2">
-          <IconLink href="https://Instagram.com/rexxzynxd" label="Instagram">
-            <FaInstagram />
-          </IconLink>
-          <IconLink href="https://x.com/ModerRexx?s=09" label="Twitter">
-            <FaXTwitter />
-          </IconLink>
-          <IconLink href="https://github.com/rexxzy" label="GitHub">
-            <FaGithub />
-          </IconLink>
-          <button
-            aria-label="Toggle Theme"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-md transition hover:bg-accent hover:text-accent-foreground"
-            onClick={toggleTheme}
+        {/* Mobile Navigation */}
+        <Sheet>
+          <SheetTrigger
+            className="md:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            aria-label="Hamburger Button"
           >
-            {theme === "light" ? (
-              <IoSunny className="h-[1.2rem] w-[1.2rem]" />
-            ) : (
-              <FiMoon className="h-[1.2rem] w-[1.2rem]" />
-            )}
-          </button>
+            <GiHamburgerMenu className="text-xl" />
+          </SheetTrigger>
+          <SheetContent side={"left"} className="w-[280px] sm:w-[300px]">
+            <SheetHeader className="text-left">
+              <SheetTitle className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
+                <FaBolt className="text-xl" />
+                <span>Archavelianime</span>
+              </SheetTitle>
+              <SheetDescription className="flex flex-col gap-3 mt-8">
+                {siteConfig.navMenuItems.map((item) => (
+                  <Link key={item.label} href={item.href}>
+                    <div
+                      className={`px-4 py-3 rounded-md transition-all active:scale-95 ${
+                        pathName === item.href
+                          ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 font-semibold"
+                          : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                      }`}
+                    >
+                      {item.label}
+                    </div>
+                  </Link>
+                ))}
+              </SheetDescription>
+            </SheetHeader>
+          </SheetContent>
+        </Sheet>
+
+        {/* Social Links and Theme Toggle */}
+        <div className="flex flex-1 items-center justify-end gap-1">
+          <div className="flex items-center gap-1">
+            <Link
+              target="_blank"
+              rel="noreferrer"
+              href="https://Instagram.com/rexxzynxd"
+            >
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-all hover:bg-gray-100 dark:hover:bg-gray-800 hover:-translate-y-0.5 active:scale-90">
+                <FaInstagram className="text-lg text-pink-600 dark:text-pink-500" />
+                <span className="sr-only">Instagram</span>
+              </div>
+            </Link>
+            
+            <Link
+              target="_blank"
+              rel="noreferrer"
+              href="https://x.com/ModerRexx?s=09"
+            >
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-all hover:bg-gray-100 dark:hover:bg-gray-800 hover:-translate-y-0.5 active:scale-90">
+                <FaXTwitter className="text-lg" />
+                <span className="sr-only">Twitter</span>
+              </div>
+            </Link>
+            
+            <button
+              aria-label="Toggle Theme"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-sm font-medium transition-all hover:bg-gray-100 dark:hover:bg-gray-800 hover:-translate-y-0.5 active:scale-90"
+              onClick={toggleTheme}
+            >
+              {theme === "light" ? (
+                <IoSunny className="h-5 w-5 text-yellow-500" />
+              ) : (
+                <FiMoon className="h-5 w-5 text-purple-400" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </header>
-  );
-}
-
-// NavItem Component
-function NavItem({ href, children, active }: { href: string; children: React.ReactNode; active?: boolean }) {
-  return (
-    <Link href={href}>
-      <div
-        className={`transition-colors duration-200 ${
-          active
-            ? "bg-gradient-to-br from-[#5ea9ef] to-[#0087f5] bg-clip-text text-transparent font-extrabold"
-            : "text-muted-foreground hover:text-foreground"
-        }`}
-      >
-        {children}
-      </div>
-    </Link>
-  );
-}
-
-// Icon Sosial Media
-function IconLink({ href, label, children }: { href: string; label: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      aria-label={label}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-md transition hover:bg-accent hover:text-accent-foreground"
-    >
-      {children}
-      <span className="sr-only">{label}</span>
-    </Link>
   );
 }
