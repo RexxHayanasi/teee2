@@ -11,8 +11,8 @@ export default function AnimeSearchCard({
   if (!anime || anime.length === 0) {
     return (
       <div className="text-center py-10">
-        <h3 className="text-xl font-semibold text-foreground/80">Anime not found!</h3>
-        <p className="text-muted-foreground">Try different search terms</p>
+        <h3 className="text-xl font-semibold text-foreground/80">Anime tidak ditemukan!</h3>
+        <p className="text-muted-foreground">Gunakan pencarian lain</p>
       </div>
     );
   }
