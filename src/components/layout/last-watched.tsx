@@ -25,10 +25,10 @@ export default function LastWatched() {
 
   const handleDeleteAllEpisode = () => {
     deleteAllEpisode();
-    toast("Episode has been deleted", {
-      description: "Refresh the page to see the changes.",
+    toast("Semua riwayat telah dihapus", {
+      description: "Muat ulang halaman untuk melihat perubahan.",
       action: {
-        label: "Refresh",
+        label: "Muat ulang",
         onClick: () => {
           if (typeof window !== "undefined") {
             window.location.reload();
@@ -41,10 +41,10 @@ export default function LastWatched() {
   return (
     <>
       <CardHeader className={title({ className: "text-center", size: "xl" })}>
-        Last Watched
+        Episode Terakhir Ditonton
       </CardHeader>
       <ScrollArea className="w-full whitespace-nowrap rounded-md">
-        <div className={`${lastWatched.length > 0 ? "flex space-x-2" : "py-4 text-center"}`}>
+        <div className={lastWatched.length > 0 ? "flex space-x-2" : "py-4 text-center w-full"}>
           {lastWatched.length > 0 ? (
             lastWatched.map((episode: any) => (
               <Card
@@ -58,7 +58,7 @@ export default function LastWatched() {
                     width={200}
                     height={100}
                     loading="lazy"
-                    alt="Poster Last Watched"
+                    alt={`Poster ${episode.title}`}
                   />
                 </Link>
                 <CardDescription
@@ -74,32 +74,32 @@ export default function LastWatched() {
               </Card>
             ))
           ) : (
-            <>No episode watched yet</>
+            <p className="w-full text-muted-foreground">Belum ada episode yang ditonton.</p>
           )}
         </div>
         <ScrollBar orientation="horizontal" />
-        <AlertDialog>
-          <AlertDialogTrigger className="mx-2 my-4 flex justify-end">
-            {lastWatched.length > 0 ? (
-              <Button variant="secondary">Clear Last Watch</Button>
-            ) : null}
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-              <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete your
-                account and remove your data from our servers.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleDeleteAllEpisode}>
-                Continue
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+
+        {lastWatched.length > 0 && (
+          <AlertDialog>
+            <AlertDialogTrigger className="mx-2 my-4 flex justify-end">
+              <Button variant="secondary">Hapus Semua Riwayat</Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Yakin ingin menghapus semua?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Tindakan ini tidak dapat dibatalkan. Semua data episode yang telah ditonton akan dihapus secara permanen.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Batal</AlertDialogCancel>
+                <AlertDialogAction onClick={handleDeleteAllEpisode}>
+                  Hapus
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        )}
       </ScrollArea>
     </>
   );
