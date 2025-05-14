@@ -1,6 +1,9 @@
 "use client";
 
-import { getSavedEpisode, deleteAllEpisode } from "@/helpers/storage-episode";
+import {
+  getSavedEpisode,
+  deleteAllEpisode,
+} from "@/src/helpers/storage-episode.ts"; // <- sesuai file kamu
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
@@ -25,10 +28,10 @@ export default function LastWatched() {
 
   const handleDeleteAllEpisode = () => {
     deleteAllEpisode();
-    toast("Semua riwayat telah dihapus", {
-      description: "Muat ulang halaman untuk melihat perubahan.",
+    toast("Riwayat tontonan dihapus", {
+      description: "Silakan muat ulang halaman untuk melihat perubahan.",
       action: {
-        label: "Muat ulang",
+        label: "Muat Ulang",
         onClick: () => {
           if (typeof window !== "undefined") {
             window.location.reload();
@@ -41,14 +44,19 @@ export default function LastWatched() {
   return (
     <>
       <CardHeader className={title({ className: "text-center", size: "xl" })}>
-        Episode Terakhir Ditonton
+        Terakhir Ditonton
       </CardHeader>
+
       <ScrollArea className="w-full whitespace-nowrap rounded-md">
-        <div className={lastWatched.length > 0 ? "flex space-x-2" : "py-4 text-center w-full"}>
+        <div
+          className={`${
+            lastWatched.length > 0 ? "flex space-x-2" : "py-4 text-center"
+          }`}
+        >
           {lastWatched.length > 0 ? (
-            lastWatched.map((episode: any) => (
+            lastWatched.map((episode) => (
               <Card
-                key={episode.router}
+                key={episode.id}
                 className="items-center duration-300 hover:bg-muted/40"
               >
                 <Link href={episode.episode}>
@@ -74,9 +82,10 @@ export default function LastWatched() {
               </Card>
             ))
           ) : (
-            <p className="w-full text-muted-foreground">Belum ada episode yang ditonton.</p>
+            <>Belum ada episode yang ditonton.</>
           )}
         </div>
+
         <ScrollBar orientation="horizontal" />
 
         {lastWatched.length > 0 && (
@@ -86,17 +95,18 @@ export default function LastWatched() {
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Yakin ingin menghapus semua?</AlertDialogTitle>
+                <AlertDialogTitle>Yakin ingin menghapus?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  Tindakan ini tidak dapat dibatalkan. Semua data episode yang telah ditonton akan dihapus secara permanen.
+                  Tindakan ini tidak dapat dibatalkan. Semua riwayat tontonan akan dihapus permanen dari perangkat.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <AlertDialogCancel>Batal</AlertDialogCancel>
                 <AlertDialogAction onClick={handleDeleteAllEpisode}>
-                  Hapus
+                  Lanjutkan
                 </AlertDialogAction>
-              </AlertDialogFooter>
+              </AlertDialogFoote
+r>
             </AlertDialogContent>
           </AlertDialog>
         )}
@@ -104,3 +114,4 @@ export default function LastWatched() {
     </>
   );
 }
+
