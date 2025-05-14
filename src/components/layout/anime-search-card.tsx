@@ -2,7 +2,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { subtitle, title } from "./primitives";
-import SkeletonCard from "./skeleton";
+import SkeletonCard from "./skeleton-card";
 
 export default function AnimeSearchCard({
   anime,
