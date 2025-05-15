@@ -25,7 +25,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 transition-all duration-300 shadow-sm dark:shadow-none">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80 transition-all duration-300 shadow-sm dark:shadow-gray-900/20">
       <div className="container flex h-16 max-w-screen-2xl items-center px-4 sm:px-6">
         {/* Logo and Desktop Navigation */}
         <div className="mr-4 hidden md:flex items-center">
@@ -79,21 +79,18 @@ export default function Navbar() {
                 {siteConfig.navMenuItems.map((item) => (
                   <Link key={item.label} href={item.href}>
                     <div
-                      className={`px-4 py-3 rounded-md transition-all duration-200 active:scale-[0.98] flex items-center gap-3 ${
+                      className={`px-4 py-3 rounded-md transition-all duration-200 active:scale-[0.98] ${
                         pathName === item.href
                           ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 font-semibold"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                       }`}
                     >
-                      {item.icon && (
-                        <span className="text-lg opacity-80">
-                          {item.icon}
-                        </span>
-                      )}
-                      <span>{item.label}</span>
-                      {pathName === item.href && (
-                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                      )}
+                      <div className="flex items-center justify-between">
+                        <span>{item.label}</span>
+                        {pathName === item.href && (
+                          <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                        )}
+                      </div>
                     </div>
                   </Link>
                 ))}
@@ -154,4 +151,4 @@ export default function Navbar() {
       </div>
     </header>
   );
-}
+            }
